@@ -96,6 +96,7 @@ Only use tables and columns explicitly described with the <SQL> tags
 </rule>
 """
 
+TABLE_NAMES = ["athletes_in_focus"]
 SQL_PREAMBLE_PT1 = ["""
 CREATE temp TABLE athletes_in_focus (
   row_id INTEGER PRIMARY KEY,

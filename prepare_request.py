@@ -28,7 +28,7 @@ class PrepareRequest:
             prepared_request[app_consts.LLM_PROMPT] = self.get_llm_prompt_payload(intent, user_query)
             # add the complete set of SQL statements to the dictionary
             prepared_request[app_consts.SQL_PREAMBLE] = \
-                self.get_sql_preamble(intent, identifiers, ['athletes_in_focus'])
+                self.get_sql_preamble(intent, identifiers)
         else:
             # Error
             print(f"PrepareRequest: Intent: {pre_processed_request[app_consts.INTENT]} is not recognized.")
@@ -51,8 +51,10 @@ class PrepareRequest:
 
         return system_prompt + user_prompt + "\n```\n"
 
-    def get_sql_preamble(self, intent: str, identifiers: List, table_names: [str]):
+    def get_sql_preamble(self, intent: str, identifiers: List):
         if intent in intents.contexts.keys():
+            # get table_names from context
+            table_names = intents.contexts[intent].TABLE_NAMES
             # if identifiers is not empty, generate identity inserts for each identifier
             stmts = intents.contexts[intent].SQL_PREAMBLE_PT1 if not identifiers else \
                 intents.contexts[intent].SQL_PREAMBLE_PT1 + self.generate_identity_inserts(identifiers, table_names)

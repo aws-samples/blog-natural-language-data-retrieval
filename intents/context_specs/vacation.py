@@ -49,6 +49,7 @@ CREATE TABLE planned_vacations (
 JOIN_HINTS = """
 """
 
+TABLE_NAMES = [""]
 SQL_PREAMBLE_PT1 = [""]
 SQL_PREAMBLE_PT2 = [""]
 

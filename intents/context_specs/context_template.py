@@ -2,13 +2,12 @@
 # For INTENT_VACATION_MANAGEMENT
 # Static prompt elements for constructing a complete prompt
 
-INTENT_DESC = "coffee"
+INTENT_DESC = "[[the name of the intent]]"
 
 SYSTEM_PROMPT_INSTRUCTIONS = \
     """You are a SQL expert. Given the following SQL tables defintions, generate SQL language to answer the user's question. 
 
-Each user question is about employee vacation: days available, requesting time off, etc. 
-If the year for a query on vacation totals is not provided, assume the year is 2024.
+[[replave this part with the intent-specific instructions for the LLM]].
 Produce SQL ready for use with a SQLITE database.
 Output the result in a JSON format with one key "sql".
 Answer the question immediately without preamble.
@@ -24,6 +23,7 @@ ANNOTATED_SQL_DEFINITIONS = \
 JOIN_HINTS = """
 """
 
+TABLE_NAMES = [""]
 SQL_PREAMBLE_PT1 = [""]
 SQL_PREAMBLE_PT2 = [""]
 
