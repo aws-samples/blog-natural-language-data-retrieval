@@ -1,5 +1,4 @@
-# The values that are represented here are either
-# A. Constants that are declared here for simplicity
+# The values that are represented here are constants that are declared here for simplicity
 
 BEDROCK_MODEL_ID = 'anthropic.claude-3-haiku-20240307-v1:0'
 BEDROCK_AWS_REGION = 'us-east-1'

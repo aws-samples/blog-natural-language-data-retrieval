@@ -1,6 +1,6 @@
 import app_constants as app_consts
 import llm_facade
-import identify_service_facade
+import identity_service_facade
 import intents
 
 # A class called pre-process-request
@@ -66,7 +66,7 @@ class PreProcessRequest:
             else:                       # iterating normally
                 first_name = last_name
                 last_name = word
-            if identify_service_facade.IdentityServiceFacade.is_named_resource(f"{first_name} {last_name}"):
+            if identity_service_facade.IdentityServiceFacade.is_named_resource(f"{first_name} {last_name}"):
                 # add the named resource to the set
                 named_resources.add(f"{first_name} {last_name}")
 

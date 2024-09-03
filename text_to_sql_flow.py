@@ -1,5 +1,5 @@
 import app_constants as app_consts
-import identify_service_facade
+import identity_service_facade
 import llm_facade
 import pre_process_request
 import prepare_request
@@ -18,7 +18,7 @@ logger.setLevel(logging.DEBUG)
 class TextToSQLFlow:
     # constructor
     def __init__(self):
-        self.identity_service_facade = identify_service_facade.IdentityServiceFacade()
+        self.identity_service_facade = identity_service_facade.IdentityServiceFacade()
         self.llm_facade = llm_facade.LlmFacade(app_consts.BEDROCK_MODEL_ID)
         self.rdbms_facade = rdbms_facade.RdbmsFacade()
         self.pre_process_request = pre_process_request.PreProcessRequest(self.llm_facade)
