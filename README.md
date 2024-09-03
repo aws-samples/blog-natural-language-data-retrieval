@@ -1,11 +1,4 @@
-## My Project
-
-TODO: Fill this README out!
-
-Be sure to:
-
-* Change the title in this README
-* Edit your repository description on GitHub
+## Natural Language Data Retriever
 
 As organizations generate and store large volumes of data in diverse data stores, the ability to extract insights dynamically from that data or perform optimizations on it based on real-time trends becomes increasingly crucial. However, querying such diverse data stores requires writing complex database queries in languages such as SQL. This process is not only time-consuming and challenging for technically savvy users, but also poses significant barriers on non-technical users.  
 
