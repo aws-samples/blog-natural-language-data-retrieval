@@ -12,6 +12,8 @@ class TestCases:
             "In what games did Usain Bolt compete?",
             "How many vacation days does John Doe have remaining?",
             "In what games did Isabelle Werth, Nedo Nadi and Allyson Felix compete?",
+            "Where does Isabelle Werth train for the games?",
+            "Did Isabelle Werth train for the games in Paris?"
         ]
 
         # Check if the index is in bounds,  if not, return an empty string

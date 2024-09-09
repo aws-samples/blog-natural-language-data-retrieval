@@ -37,8 +37,8 @@ Following is the set of files and their purpose in the repository
 * `text_to_sql_notebook.ipynb` - This is the same overall control-flow orchestration in a notebook form.
 
 ### Running tests
-* `test_cases.py` - This file defines a class called UserInputs.This class holds a set of example user requests to run tests automatically.
-* `test_drive_text_to_sql_flow.py` - runs several test cases from the `test_cases.py` file.
+* `test_cases.py` - This file defines a class called TestCases.This class holds a set of example user requests that can be used to exercise the solution.
+* `test_drive_text_to_sql_flow.py` - runs test cases from the `test_cases.py` file.
 
 ## Security
 

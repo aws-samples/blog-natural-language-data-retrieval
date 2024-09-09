@@ -7,7 +7,7 @@ if __name__ == '__main__':
 
     test_user_requests = test_cases.TestCases()
 
-    start, end = 0, 5
+    start, end = 0, 7
     for i in range(start, end):
         print("------------------------------------------------------")
         example_input = test_user_requests.get_test_case(i)

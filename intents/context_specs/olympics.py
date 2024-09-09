@@ -79,6 +79,12 @@ CREATE TABLE medal (
   medal_name TEXT DEFAULT NULL   -- the name of the medal
 );
 
+ -- The athlete_training_locations_tv table holds data on where the athlete does thier training
+CREATE TABLE athlete_training_locations_tv (
+  competitor_id INTEGER,    -- the unique id for the athlete
+  location TEXT DEFAULT NULL   -- the name of the athlete's training location
+  CONSTRAINT fk_at_com FOREIGN KEY (competitor_id) REFERENCES games_competitor (id),
+);
 """
 
 JOIN_HINTS = """
@@ -104,8 +110,12 @@ CREATE temp TABLE athletes_in_focus (
   full_name TEXT DEFAULT NULL);
 """]
 
-SQL_PREAMBLE_PT2 = [""]
-
+SQL_PREAMBLE_PT2 = ["""
+    CREATE TEMP VIEW athlete_training_locations_tv (competitor_id, location) as
+      select ab.ID as 'id', json_tree.value AS 'training_locations' 
+      from athlete_background as ab, json_tree(ab.background, '$.training_locations') 
+      where json_tree.type NOT IN ('object','array');
+    """]
 
 FEW_SHOT_EXAMPLES = \
     """<example>
@@ -186,6 +196,16 @@ FROM athletes_in_focus a
 INNER JOIN games_competitor gc ON a.id = gc.person_id
 INNER JOIN competitor_event ce ON gc.id = ce.competitor_id
 INNER JOIN event e ON ce.event_id = e.id;"
+}
+```
+</example>
+
+<example>
+question: Where does Danuta Kozk do his training for the games?
+answer:
+```{"sql": "SELECT atl.competitor_id, atl.location
+FROM athletes_in_focus a
+JOIN athlete_training_locations_tv atl ON a.id = atl.competitor_id;"
 }
 ```
 </example>
