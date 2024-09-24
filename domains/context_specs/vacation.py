@@ -1,6 +1,5 @@
 #######################################################
-# For DOMAIN_VACATION_MANAGEMENT
-# Static prompt elements for constructing a complete prompt
+# DOMAIN_VACATION_MANAGEMENT context specs
 
 DOMAIN_DESC = "vacation"
 

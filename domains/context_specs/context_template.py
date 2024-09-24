@@ -1,6 +1,5 @@
 #######################################################
-# Template
-# Static prompt elements for constructing a complete prompt
+# Template for domain context
 
 DOMAIN_DESC = "[[name of the domain]]"
 
