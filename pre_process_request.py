@@ -1,12 +1,12 @@
 import app_constants as app_consts
 import llm_facade
 import identity_service_facade
-import intents
+import domains
 
 # A class called pre-process-request
 # The primary function on this class is to pre-process a user request such that it is ready for down-stream processing.
 # The run function an input user request (as a string) and returns a dictionary that includes:
-# The input user request, the intent class of the request and identifiers found in the request
+# The input user request, the domain of the request and identifiers found in the request
 # This is a simple implementation that will be replaced with a more sophisticated AI in the full implementation.
 
 
@@ -18,27 +18,27 @@ class PreProcessRequest:
     # A method to pre-process a request
     def run(self, user_request: str):
         # create a dictionary to store the pre-processed request
-        # the input, the intent-class of the input and identifiers found in the input
+        # the input, the domain of the input and identifiers found in the input
         pre_processed_request = {app_consts.USER_QUERY: user_request,
-                                 app_consts.INTENT: self.determine_intent(user_request),
+                                 app_consts.DOMAIN: self.determine_domain(user_request),
                                  app_consts.NAMED_RESOURCES: self.get_named_resources_from_user_request(user_request)}
 
         return pre_processed_request
 
-    def determine_intent(self, user_request: str):
-        prompt = app_consts.INTENT_CLASSIFICATION_PROMPT + user_request + "\n"
-        intent_inference = self.llm_inference.invoke(prompt)
+    def determine_domain(self, user_request: str):
+        prompt = app_consts.DOMAIN_CLASSIFICATION_PROMPT + user_request + "\n"
+        domain_inference = self.llm_inference.invoke(prompt)
 
-        if intent_inference[app_consts.PROCESSING_STATUS] == "FAILURE":
-            return intents.INTENT_UNKNOWN
+        if domain_inference[app_consts.PROCESSING_STATUS] == "FAILURE":
+            return domains.DOMAIN_UNKNOWN
         else:
-            llm_output = intent_inference[app_consts.LLM_OUTPUT]
-            determined_intent = llm_output[app_consts.INTENT]
+            llm_output = domain_inference[app_consts.LLM_OUTPUT]
+            determined_domain = llm_output[app_consts.DOMAIN]
 
-        if determined_intent in intents.contexts.keys():
-            return determined_intent
+        if determined_domain in domains.contexts.keys():
+            return determined_domain
         else:
-            return intents.INTENT_UNKNOWN
+            return domains.DOMAIN_UNKNOWN
 
     @staticmethod
     def get_named_resources_from_user_request(user_request: str):

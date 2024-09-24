@@ -1,13 +1,13 @@
 #######################################################
-# For INTENT_VACATION_MANAGEMENT
+# Template
 # Static prompt elements for constructing a complete prompt
 
-INTENT_DESC = "[[the name of the intent]]"
+DOMAIN_DESC = "[[name of the domain]]"
 
 SYSTEM_PROMPT_INSTRUCTIONS = \
     """You are a SQL expert. Given the following SQL tables defintions, generate SQL language to answer the user's question. 
 
-[[replave this part with the intent-specific instructions for the LLM]].
+[[replave this part with the domain-specific instructions for the LLM]].
 Produce SQL ready for use with a SQLITE database.
 Output the result in a JSON format with one key "sql".
 Answer the question immediately without preamble.

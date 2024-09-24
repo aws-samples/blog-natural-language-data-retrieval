@@ -29,7 +29,7 @@ class TextToSQLFlow:
 
         # pre-process the request
         pre_processed_request = self.pre_process_request.run(user_request)
-        intent = pre_processed_request[app_consts.INTENT]
+        domain = pre_processed_request[app_consts.DOMAIN]
         named_resources = pre_processed_request[app_consts.NAMED_RESOURCES]
 
         # convert any named resources to identifiers
@@ -52,7 +52,7 @@ class TextToSQLFlow:
 
         # Execute the SQL script
         sql_script = prepared_request[app_consts.SQL_PREAMBLE] + [generated_sql[app_consts.SQL]]
-        database = app_consts.get_database_for_intent(intent)
+        database = app_consts.get_database_for_domain(domain)
         logger.info(f"TextToSQLFlow: sql_script: {sql_script}")
 
         results = self.rdbms_facade.execute_sql(database, sql_script)

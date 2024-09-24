@@ -1,6 +1,6 @@
 import app_constants as app_consts
 from typing import Dict, List
-import intents
+import domains
 
 
 # A class called Prepare Request.
@@ -15,23 +15,23 @@ class PrepareRequest:
         # create a dictionary to store the prepared request
         prepared_request = {}
 
-        # get the request intent
-        intent = pre_processed_request[app_consts.INTENT]
+        # get the request domain
+        domain = pre_processed_request[app_consts.DOMAIN]
         user_query = pre_processed_request[app_consts.USER_QUERY]
         identifiers = pre_processed_request[app_consts.IDENTIFIERS]
 
-        # Based on the user intent (captured in the intent field in the pre-processed request)
+        # Based on the user domain (captured in the domain field in the pre-processed request)
         # configure the LLM prompt and, if necessary, the sql execution pre-amble
-        # if intent in [das.INTENT_VACATION_MANAGEMENT]:
-        if intent in intents.contexts.keys():
+        # if domain in [das.DOMAIN_VACATION_MANAGEMENT]:
+        if domain in domains.contexts.keys():
             # add the llm_prompt to the dictionary
-            prepared_request[app_consts.LLM_PROMPT] = self.get_llm_prompt_payload(intent, user_query)
+            prepared_request[app_consts.LLM_PROMPT] = self.get_llm_prompt_payload(domain, user_query)
             # add the complete set of SQL statements to the dictionary
             prepared_request[app_consts.SQL_PREAMBLE] = \
-                self.get_sql_preamble(intent, identifiers)
+                self.get_sql_preamble(domain, identifiers)
         else:
             # Error
-            print(f"PrepareRequest: Intent: {pre_processed_request[app_consts.INTENT]} is not recognized.")
+            print(f"PrepareRequest: Domain: {pre_processed_request[app_consts.DOMAIN]} is not recognized.")
             print("Exiting...")
             exit(1)
 
@@ -39,29 +39,29 @@ class PrepareRequest:
         return prepared_request
 
     @staticmethod
-    def get_llm_prompt_payload(intent: str, user_query: str):
-        if intent in intents.contexts.keys():
-            system_prompt = intents.contexts[intent].SYSTEM_PROMPT
-            user_prompt = intents.contexts[intent].USER_PROMPT + user_query
+    def get_llm_prompt_payload(domain: str, user_query: str):
+        if domain in domains.contexts.keys():
+            system_prompt = domains.contexts[domain].SYSTEM_PROMPT
+            user_prompt = domains.contexts[domain].USER_PROMPT + user_query
         else:
             # Error
-            print(f"PrepareRequest: Intent: {intent} is not recognized.")
+            print(f"PrepareRequest: Domain: {domain} is not recognized.")
             print("Exiting...")
             exit(1)
 
         return system_prompt + user_prompt + "\n```\n"
 
-    def get_sql_preamble(self, intent: str, identifiers: List):
-        if intent in intents.contexts.keys():
+    def get_sql_preamble(self, domain: str, identifiers: List):
+        if domain in domains.contexts.keys():
             # get table_names from context
-            table_names = intents.contexts[intent].TABLE_NAMES
+            table_names = domains.contexts[domain].TABLE_NAMES
             # if identifiers is not empty, generate identity inserts for each identifier
-            stmts = intents.contexts[intent].SQL_PREAMBLE_PT1 if not identifiers else \
-                intents.contexts[intent].SQL_PREAMBLE_PT1 + self.generate_identity_inserts(identifiers, table_names)
-            return stmts + intents.contexts[intent].SQL_PREAMBLE_PT2
+            stmts = domains.contexts[domain].SQL_PREAMBLE_PT1 if not identifiers else \
+                domains.contexts[domain].SQL_PREAMBLE_PT1 + self.generate_identity_inserts(identifiers, table_names)
+            return stmts + domains.contexts[domain].SQL_PREAMBLE_PT2
         else:
             # Error
-            print(f"PrepareRequest: Intent: {intent} is not recognized.")
+            print(f"PrepareRequest: Domain: {domain} is not recognized.")
             print("Exiting...")
             exit(1)
 

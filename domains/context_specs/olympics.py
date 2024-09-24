@@ -1,8 +1,8 @@
 #######################################################
-# For INTENT_VACATION_MANAGEMENT
+# For DOMAIN_VACATION_MANAGEMENT
 # Static prompt elements for constructing a complete prompt
 
-INTENT_DESC = "olympics"
+DOMAIN_DESC = "olympics"
 
 SYSTEM_PROMPT_INSTRUCTIONS = \
     """You are a SQL expert. Given the following SQL tables definitions, generate SQL language to answer the user's question. 
